@@ -1,0 +1,15 @@
+{
+    "name": "ScriptableObjectsArchitecture.Runtime",
+    "references": [
+        "GUID:914e3550bb03500479746ca00f6b97d9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
