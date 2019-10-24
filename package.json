@@ -1,14 +1,14 @@
 {
   "name": "com.fabricio.soarchitecture",
-  "version": "1.0.3",
   "displayName": "Scriptable Objects Architecture",
-  "description": "Scriptable Objects Architecture",
+   "version": "1.0.2",
   "unity": "2018.3",
   "repository": {
     "type": "git",
     "url": "git@github.com:fabriciomsantos/Unity_ScriptableObjectsArchitecture.git",
-    "revision": "HEAD"
+    "revision": "309ebcf6da3062cb3f8f3232efb2cbad61a0e9e5"
   },
+  "description": "Scriptable Objects Architecture",
   "keywords": [
     "Scriptable",
     "Objects",
