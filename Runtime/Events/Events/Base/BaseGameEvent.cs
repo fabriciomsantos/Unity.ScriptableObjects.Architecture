@@ -26,11 +26,14 @@ namespace ScriptableObjectsArchitecture.Events
         [Multiline(5)][SerializeField]
         private string Description;
 
-        public T valueToTest;
+        [SerializeField]
+        private T valueToTest;
 
-        public bool raiseOnValueChanged = false;
-
-        public bool raise = false;
+        [SerializeField]
+        private bool raiseOnValueChanged = false;
+        
+        [SerializeField]
+        private bool raise = false;
 
         /// <summary>
         /// Called when the script is loaded or a value is changed in the
