@@ -26,13 +26,13 @@ namespace ScriptableObjectsArchitecture.Events
         [Multiline(5)][SerializeField]
         private string Description;
 
-        [SerializeField]
+        [Header("Debug"),SerializeField,Tooltip("Editor Only")]
         private T valueToTest;
 
-        [SerializeField]
+        [SerializeField,Tooltip("Editor Only")]
         private bool raiseOnValueChanged = false;
         
-        [SerializeField]
+        [SerializeField,Tooltip("Editor Only")]
         private bool raise = false;
 
         /// <summary>
