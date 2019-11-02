@@ -8,7 +8,6 @@ namespace ScriptableObjectsArchitecture.Events
     [Serializable]
     public abstract class BaseGameEvent<T> : ScriptableObject
     {
-
         /// <summary>
         /// Event keyword makes it so that only this class can trigger the event
         /// Public because anyone can subscribe(+=), and unsubscribe(-=) to/from this event
@@ -26,20 +25,22 @@ namespace ScriptableObjectsArchitecture.Events
         [Multiline(5)][SerializeField]
         private string Description;
 
+#pragma warning disable CS0649
         [Header("Debug"),SerializeField,Tooltip("Editor Only")]
         private T valueToTest;
+#pragma warning restore CS0649
 
         [SerializeField,Tooltip("Editor Only")]
         private bool raiseOnValueChanged = false;
-        
+
         [SerializeField,Tooltip("Editor Only")]
-        private bool raise = false;
+        private bool raise;
 
         /// <summary>
         /// Called when the script is loaded or a value is changed in the
         /// inspector (Called in the editor only).
         /// </summary>
-        void OnValidate()
+        private void OnValidate()
         {
             if (Application.isPlaying)
             {
@@ -48,13 +49,10 @@ namespace ScriptableObjectsArchitecture.Events
                     Raise(valueToTest);
                     raise = false;
                 }
-                else
+                else if (raise)
                 {
-                    if (raise)
-                    {
-                        Raise(valueToTest);
-                        raise = false;
-                    }
+                    Raise(valueToTest);
+                    raise = false;
                 }
             }
             else
@@ -63,6 +61,5 @@ namespace ScriptableObjectsArchitecture.Events
             }
         }
 #endif
-
     }
 }
