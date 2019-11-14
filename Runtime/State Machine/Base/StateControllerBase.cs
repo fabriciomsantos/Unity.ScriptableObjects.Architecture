@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using ScriptableObjectsArchitecture.Inspector;
 
 using UnityEngine;
 
@@ -8,6 +7,8 @@ namespace ScriptableObjectsArchitecture.StateMachine
     public abstract class StateControllerBase : MonoBehaviour
     {
         #region Public Variables
+
+        [InspectInline(canEditRemoteTarget=true)]
         public StateBase currentState;
 
         #endregion
@@ -32,7 +33,7 @@ namespace ScriptableObjectsArchitecture.StateMachine
         public void TransitionToState(StateBase nextState)
         {
             currentState = nextState;
-            currentState.EnterState(this);
+            currentState?.EnterState(this);
         }
 
         #endregion

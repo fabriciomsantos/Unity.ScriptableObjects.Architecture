@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-using UnityEngine;
+using ScriptableObjectsArchitecture.Inspector;
 
 namespace ScriptableObjectsArchitecture.StateMachine
 {
@@ -9,6 +8,8 @@ namespace ScriptableObjectsArchitecture.StateMachine
     public class TransitionBase
     {
         public List<ConditionBase> conditions = new List<ConditionBase>();
+
+        [InspectInline(canEditRemoteTarget=true)]
         public StateBase state;
     }
 }
