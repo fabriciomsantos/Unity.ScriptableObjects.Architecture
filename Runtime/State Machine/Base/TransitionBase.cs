@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using ScriptableObjectsArchitecture.Inspector;
 
 namespace ScriptableObjectsArchitecture.StateMachine
 {
@@ -9,7 +8,9 @@ namespace ScriptableObjectsArchitecture.StateMachine
     {
         public List<ConditionBase> conditions = new List<ConditionBase>();
 
-        [InspectInline(canEditRemoteTarget=true)]
+        #if UNITY_EDITOR 
+        [Inspector.InspectInline(canEditRemoteTarget =true)]
+        #endif
         public StateBase state;
     }
 }

@@ -1,6 +1,4 @@
-﻿using ScriptableObjectsArchitecture.Inspector;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ScriptableObjectsArchitecture.StateMachine
 {
@@ -8,7 +6,9 @@ namespace ScriptableObjectsArchitecture.StateMachine
     {
         #region Public Variables
 
-        [InspectInline(canEditRemoteTarget=true)]
+        #if UNITY_EDITOR 
+        [Inspector.InspectInline(canEditRemoteTarget =true)]
+        #endif
         public StateBase currentState;
 
         #endregion

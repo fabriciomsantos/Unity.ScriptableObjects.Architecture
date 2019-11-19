@@ -1,12 +1,12 @@
-﻿using ScriptableObjectsArchitecture.Inspector;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ScriptableObjectsArchitecture.RuntimeSet
 {
     public class Obj : MonoBehaviour
     {
-        [InspectInline(canEditRemoteTarget=true)]
+        #if UNITY_EDITOR 
+        [Inspector.InspectInline(canEditRemoteTarget =true)]
+        #endif
         public ObjRuntimeSet RuntimeSet;
 
         private void OnEnable()
