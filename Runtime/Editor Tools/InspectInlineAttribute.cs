@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace ScriptableObjectsArchitecture.Inspector
 {
+
     public class InspectInlineAttribute : PropertyAttribute
     {
         public bool canEditRemoteTarget;
 
         public bool canCreateSubasset;
     }
+
 }

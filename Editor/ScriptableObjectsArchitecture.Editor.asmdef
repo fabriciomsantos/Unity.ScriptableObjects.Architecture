@@ -1,6 +1,8 @@
 {
     "name": "ScriptableObjectsArchitecture.Editor",
-    "references": [],
+    "references": [
+        "GUID:d73b0989ab5661844b3cf89fcd45ab8d"
+    ],
     "includePlatforms": [
         "Editor"
     ],
