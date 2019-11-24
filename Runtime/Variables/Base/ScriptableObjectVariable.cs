@@ -5,8 +5,8 @@ namespace ScriptableObjectsArchitecture.Variable
     public abstract class ScriptableObjectVariable<T> : ScriptableObject
     {
 #if UNITY_EDITOR
-        [Multiline(5)][SerializeField]
-        private string Description;
+        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
+        private string description;
 #endif
         public T Value;
 

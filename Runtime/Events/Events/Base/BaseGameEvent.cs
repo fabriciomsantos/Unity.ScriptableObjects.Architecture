@@ -22,8 +22,8 @@ namespace ScriptableObjectsArchitecture.Events
 
 #if UNITY_EDITOR
 
-        [Multiline(5)][SerializeField]
-        private string Description;
+        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
+        private string description;
 
 #pragma warning disable CS0649
         [Header("Debug"),SerializeField,Tooltip("Editor Only")]

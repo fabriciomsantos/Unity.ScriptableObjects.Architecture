@@ -2,8 +2,12 @@
 
 namespace ScriptableObjectsArchitecture.StateMachine
 {
-    public abstract class ConditionBase: ScriptableObject
+    public abstract class ConditionBase : ScriptableObject
     {
-        public abstract bool Check(StateControllerBase controller);
+#if UNITY_EDITOR
+        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
+        private string description;
+#endif
+        public abstract bool Check(StateMachineControllerBase controller);
     }
 }

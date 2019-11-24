@@ -7,55 +7,117 @@ namespace ScriptableObjectsArchitecture.StateMachine
     public abstract class StateBase : ScriptableObject
     {
         #region Public Variables
-        public List<ActionBase> actions;
+#if UNITY_EDITOR
+        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
+        private string description;
+#endif
+
+        [Header("Actions")]
+        public List<ActionBase> onEnterActions;
+
+        public List<ActionBase> onUpdateActions;
+        public List<ActionBase> onExitActions;
+
+        [Header("Transitions")]
         public List<TransitionBase> transitions;
 
         #endregion
 
         #region Private Variables
+        private StateMachineControllerBase controller;
 
         #endregion
 
         #region Unity Methods
 
+#if UNITY_EDITOR
+        /// <summary>
+        /// Called when the script is loaded or a value is changed in the
+        /// inspector (Called in the editor only).
+        /// </summary>
+        private void OnValidate()
+        {
+            foreach (var transition in transitions)
+            {
+                if (Application.isPlaying)
+                {
+                    if (transition.makeTransition && transition.state)
+                    {
+                        controller?.TransitionToState(transition.state);
+                        transition.makeTransition = false;
+                    }
+                }
+                else
+                {
+                    transition.makeTransition = false;
+                }
+            }
+        }
+#endif
         #endregion
 
         #region Public Methods
-        public abstract void EnterState(StateControllerBase controller);
-
-        public void UpdateState(StateControllerBase controller)
+        public void EnterState(StateMachineControllerBase _controller)
         {
-            DoActions(controller);
-            CheckTransitions(controller);
+            controller = _controller;
+            ExecuteOnEnterActions();
         }
 
-        public abstract void ExitState(StateControllerBase controller);
+        public void UpdateState()
+        {
+            ExecuteOnUpdateActions();
+            CheckTransitions();
+        }
+
+        public void ExitState(StateMachineControllerBase _controller)
+        {
+            controller = _controller;
+            ExecuteOnExitActions();
+        }
 
         #endregion
 
         #region Private Methods
-        private void DoActions(StateControllerBase controller)
+        private void ExecuteOnEnterActions()
         {
-            foreach (var action in actions)
+            foreach (var onEnterAction in onEnterActions)
             {
-                action.Act(controller);
+                onEnterAction?.Execute(controller);
             }
         }
 
-        private void CheckTransitions(StateControllerBase controller)
+        private void ExecuteOnUpdateActions()
+        {
+            foreach (var onUpdateAction in onUpdateActions)
+            {
+                onUpdateAction?.Execute(controller);
+            }
+        }
+
+        private void ExecuteOnExitActions()
+        {
+            foreach (var onExitAction in onExitActions)
+            {
+                onExitAction?.Execute(controller);
+            }
+        }
+
+        private void CheckTransitions()
         {
             foreach (var transition in transitions)
             {
                 var conditionsSucceeded = true;
                 foreach (var condition in transition.conditions)
                 {
-                    conditionsSucceeded = condition.Check(controller);
+                    if (condition)
+                    {
+                        conditionsSucceeded = condition.Check(controller);
+                    }
                 }
 
-                if (conditionsSucceeded)
+                if (conditionsSucceeded && transition.state)
                 {
-                    ExitState(controller);
-                    controller.TransitionToState(this);
+                    controller?.TransitionToState(transition.state);
                 }
             }
         }

@@ -8,8 +8,8 @@ namespace ScriptableObjectsArchitecture.Enums
     public abstract class ScriptableObjectEnums : ScriptableObject
     {
 #if UNITY_EDITOR
-        [Multiline(5)][SerializeField]
-        private string Description;
+        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
+        private string description;
 #endif
     }
 }

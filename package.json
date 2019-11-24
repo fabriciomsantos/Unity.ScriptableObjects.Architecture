@@ -1,14 +1,14 @@
 {
   "name": "com.fabricio.soarchitecture",
   "displayName": "Scriptable Objects Architecture",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "unity": "2018.3",
   "repository": {
     "type": "git",
     "url": "git@github.com:fabriciomsantos/Unity_ScriptableObjectsArchitecture.git",
     "revision": "309ebcf6da3062cb3f8f3232efb2cbad61a0e9e5"
   },
-  "description": "Scriptable Objects Architecture",
+  "description": "Unity package for game architecture based on scriptable objects",
   "keywords": [
     "Scriptable",
     "Objects",

@@ -8,8 +8,8 @@ namespace ScriptableObjectsArchitecture.RuntimeSet
     {
         
 #if UNITY_EDITOR
-        [Multiline(5)][SerializeField]
-        private string Description;
+        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
+        private string description;
 #endif
         public List<T> Items = new List<T>();
 
