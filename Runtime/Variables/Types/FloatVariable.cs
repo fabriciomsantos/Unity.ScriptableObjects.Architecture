@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjectsArchitecture.Variable
+namespace ScriptableObjectsArchitecture.Variable.Object
 {
     [CreateAssetMenu(fileName = "NewFloatVariable", menuName = "Variables/Float Variable")]
     public class FloatVariable : ScriptableObjectVariable<float>
