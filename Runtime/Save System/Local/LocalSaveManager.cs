@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -89,6 +90,7 @@ namespace ScriptableObjectsArchitecture.Save
                     if (save.useEncryption)
                     {
                         dataAsJson = AesOperationEncryption.EncryptString(save.encryptionKey, dataAsJson);
+                        dataAsJson = BinaryString.StringToBinary(dataAsJson);
                     }
                     File.WriteAllText(filePath, dataAsJson);
                     Debug.Log("File Saved");
@@ -114,6 +116,7 @@ namespace ScriptableObjectsArchitecture.Save
 
                     if (save.useEncryption)
                     {
+                        dataAsJson = BinaryString.BinaryToString(dataAsJson);
                         dataAsJson = AesOperationEncryption.DecryptString(save.encryptionKey, dataAsJson);
                     }
 
@@ -136,6 +139,31 @@ namespace ScriptableObjectsArchitecture.Save
         #region Private Methods
 
         #endregion
+    }
+
+    public static class BinaryString
+    {
+        public static string StringToBinary(string data)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (char c in data)
+            {
+                sb.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
+            }
+            return sb.ToString();
+        }
+
+        public static string BinaryToString(string data)
+        {
+            var byteList = new List<byte>();
+
+            for (int i = 0; i < data.Length; i += 8)
+            {
+                byteList.Add(Convert.ToByte(data.Substring(i, 8), 2));
+            }
+            return Encoding.ASCII.GetString(byteList.ToArray());
+        }
     }
 
     public static class AesOperationEncryption
