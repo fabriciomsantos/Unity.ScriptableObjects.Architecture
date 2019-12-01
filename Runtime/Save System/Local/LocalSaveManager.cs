@@ -22,18 +22,16 @@ namespace ScriptableObjectsArchitecture.Save
         #region Private Variables
         private const char separator = ';';
 
-#if UNITY_EDITOR
         [Header("Debug")][SerializeField][Tooltip("Editor Only")]
         private bool load;
 
         [SerializeField][Tooltip("Editor Only")]
         private bool save;
-#endif
 
         #endregion
 
         #region Unity Methods
-#if UNITY_EDITOR
+
         /// <summary>
         /// Called when the script is loaded or a value is changed in the
         /// inspector (Called in the editor only).
@@ -52,7 +50,7 @@ namespace ScriptableObjectsArchitecture.Save
                 load = false;
             }
         }
-#endif
+
         /// <summary>
         /// This function is called when the object becomes enabled and active.
         /// </summary>

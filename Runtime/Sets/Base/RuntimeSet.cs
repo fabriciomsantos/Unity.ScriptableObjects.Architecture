@@ -6,11 +6,9 @@ namespace ScriptableObjectsArchitecture.RuntimeSet
 {
     public abstract class RuntimeSet<T> : ScriptableObject
     {
-        
-#if UNITY_EDITOR
         [Multiline(5)][SerializeField][Tooltip("Editor Only")]
         private string description;
-#endif
+
         public List<T> Items = new List<T>();
 
         public void Add(T thing)

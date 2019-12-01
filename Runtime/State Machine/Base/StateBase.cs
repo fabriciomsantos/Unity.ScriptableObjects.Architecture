@@ -7,10 +7,8 @@ namespace ScriptableObjectsArchitecture.StateMachine
     public abstract class StateBase : ScriptableObject
     {
         #region Public Variables
-#if UNITY_EDITOR
         [Multiline(5)][SerializeField][Tooltip("Editor Only")]
         private string description;
-#endif
 
         [Header("Actions")]
         public List<ActionBase> onEnterActions;
@@ -30,7 +28,7 @@ namespace ScriptableObjectsArchitecture.StateMachine
 
         #region Unity Methods
 
-#if UNITY_EDITOR
+
         /// <summary>
         /// Called when the script is loaded or a value is changed in the
         /// inspector (Called in the editor only).
@@ -53,7 +51,7 @@ namespace ScriptableObjectsArchitecture.StateMachine
                 }
             }
         }
-#endif
+
         #endregion
 
         #region Public Methods

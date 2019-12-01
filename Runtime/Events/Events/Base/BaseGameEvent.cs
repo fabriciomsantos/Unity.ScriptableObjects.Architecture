@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 using UnityEngine;
 
@@ -20,20 +19,18 @@ namespace ScriptableObjectsArchitecture.Events
             EventListeners(item);
         }
 
-#if UNITY_EDITOR
-
         [Multiline(5)][SerializeField][Tooltip("Editor Only")]
         private string description;
 
 #pragma warning disable CS0649
-        [Header("Debug"),SerializeField,Tooltip("Editor Only")]
+        [Header("Debug"), SerializeField, Tooltip("Editor Only")]
         private T valueToTest;
 #pragma warning restore CS0649
 
-        [SerializeField,Tooltip("Editor Only")]
+        [SerializeField, Tooltip("Editor Only")]
         private bool raiseOnValueChanged = false;
 
-        [SerializeField,Tooltip("Editor Only")]
+        [SerializeField, Tooltip("Editor Only")]
         private bool raise;
 
         /// <summary>
@@ -60,6 +57,6 @@ namespace ScriptableObjectsArchitecture.Events
                 raise = false;
             }
         }
-#endif
+
     }
 }

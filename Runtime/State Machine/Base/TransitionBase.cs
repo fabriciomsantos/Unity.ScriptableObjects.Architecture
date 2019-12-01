@@ -16,9 +16,7 @@ namespace ScriptableObjectsArchitecture.StateMachine
         [Header("State")]
         public StateBase state;
 
-#if UNITY_EDITOR
         [Header("Debug")][Tooltip("Editor Only")]
         public bool makeTransition;
-#endif
     }
 }
