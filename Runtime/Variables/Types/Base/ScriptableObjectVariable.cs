@@ -4,7 +4,6 @@ namespace ScriptableObjectsArchitecture.Variable.Object
 {
     public abstract class ScriptableObjectVariable<T> : ScriptableObject
     {
-
         [Multiline(5)][SerializeField][Tooltip("Editor Only")]
         private string description;
 
