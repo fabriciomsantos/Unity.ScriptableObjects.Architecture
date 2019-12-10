@@ -5,14 +5,17 @@ using UnityEngine;
 
 namespace ScriptableObjectsArchitecture.Variable.Reference
 {
-    public class ScriptableObjectVariableReference<T, U>  where U : ScriptableObjectVariable<T>
+    public class ScriptableObjectVariableReference<T, U> where U : ScriptableObjectVariable<T>
     {
+#pragma warning disable 0649
+
         [SerializeField]
         private T InspectorValue;
 
         [SerializeField][InspectInline(canEditRemoteTarget = true)]
         private U Variable;
 
+#pragma warning restore 0649
         public ScriptableObjectVariableReference()
         { }
 
