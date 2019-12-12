@@ -69,7 +69,12 @@ namespace ScriptableObjectsArchitecture.Save
         {
             foreach (var save in saveFiles)
             {
-                var filePath = Path.Combine(Application.persistentDataPath, save.fileName);
+                if (save.fileName?.Length == 0)
+                {
+                    Debug.LogWarning("Enter file name");
+                    return;
+                }
+
                 string dataAsJson = "";
                 foreach (var objectToSave in save.objectsToSave)
                 {
@@ -90,7 +95,19 @@ namespace ScriptableObjectsArchitecture.Save
                         dataAsJson = AesOperationEncryption.EncryptString(save.encryptionKey, dataAsJson);
                         dataAsJson = BinaryString.StringToBinary(dataAsJson);
                     }
-                    File.WriteAllText(filePath, dataAsJson);
+
+                    switch (save.saveLocation)
+                    {
+                        case SaveLocation.LocalFile:
+                            var filePath = Path.Combine(Application.persistentDataPath, save.fileName);
+                            File.WriteAllText(filePath, dataAsJson);
+                            break;
+
+                        case SaveLocation.PlayerPref:
+                            PlayerPrefs.SetString(save.fileName, dataAsJson);
+                            break;
+                    }
+
                     Debug.Log("File Saved");
                 }
             }
@@ -106,12 +123,26 @@ namespace ScriptableObjectsArchitecture.Save
                     return;
                 }
 
-                var filePath = Path.Combine(Application.persistentDataPath, save.fileName);
+                string dataAsJson = "";
 
-                if (File.Exists(filePath))
+                switch (save.saveLocation)
                 {
-                    string dataAsJson = File.ReadAllText(filePath);
+                    case SaveLocation.LocalFile:
+                        var filePath = Path.Combine(Application.persistentDataPath, save.fileName);
 
+                        if (File.Exists(filePath))
+                        {
+                            dataAsJson = File.ReadAllText(filePath);
+                        }
+                        break;
+
+                    case SaveLocation.PlayerPref:
+                        dataAsJson = PlayerPrefs.GetString(save.fileName);
+                        break;
+                }
+
+                if (dataAsJson?.Length > 0)
+                {
                     if (save.useEncryption)
                     {
                         dataAsJson = BinaryString.BinaryToString(dataAsJson);

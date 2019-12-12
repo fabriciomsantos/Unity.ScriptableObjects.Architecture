@@ -5,11 +5,13 @@ namespace ScriptableObjectsArchitecture.Save
     [CreateAssetMenu(fileName = "NewSaveFile", menuName = "Save System/Save File")]
     public class SaveFile : ScriptableObject
     {
+
         [Header("Settings")][Tooltip("fileName.Extention")]
         public string fileName;
 
         public bool formatJson;
 
+        public SaveLocation saveLocation;
         [Header("Encryption")]
         public bool useEncryption;
 
@@ -17,5 +19,11 @@ namespace ScriptableObjectsArchitecture.Save
 
         [Header("Objects")]
         public ScriptableObject[] objectsToSave;
+    }
+
+    public enum SaveLocation
+    {
+        LocalFile,
+        PlayerPref
     }
 }
