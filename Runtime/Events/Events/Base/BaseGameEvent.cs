@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace ScriptableObjectsArchitecture.Events
+namespace ScriptableObjectsArchitecture.Events.SO
 {
     [Serializable]
     public abstract class BaseGameEvent<T> : ScriptableObject

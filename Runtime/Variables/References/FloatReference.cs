@@ -1,4 +1,4 @@
-﻿using ScriptableObjectsArchitecture.Variable.Object;
+﻿using ScriptableObjectsArchitecture.Variable.SO;
 
 namespace ScriptableObjectsArchitecture.Variable.Reference
 {

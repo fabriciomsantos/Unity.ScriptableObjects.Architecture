@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace ScriptableObjectsArchitecture.Events
+namespace ScriptableObjectsArchitecture.Events.SO
 {
     /// <summary>
     /// Create file inside project

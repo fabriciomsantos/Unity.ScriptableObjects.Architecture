@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjectsArchitecture.Variable.Object
+namespace ScriptableObjectsArchitecture.Variable.SO
 {
     [CreateAssetMenu(fileName = "NewVector2Variable", menuName = "Variables/Vector2 Variable")]
     public class Vector2Variable :  ScriptableObjectVariable<Vector2>

@@ -1,4 +1,4 @@
-﻿
+﻿using ScriptableObjectsArchitecture.Events.SO;
 namespace ScriptableObjectsArchitecture.Events
 {
     /// <summary>

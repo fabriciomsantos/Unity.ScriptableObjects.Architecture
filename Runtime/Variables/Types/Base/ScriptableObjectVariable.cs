@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjectsArchitecture.Variable.Object
+namespace ScriptableObjectsArchitecture.Variable.SO
 {
     public abstract class ScriptableObjectVariable<T> : ScriptableObject
     {

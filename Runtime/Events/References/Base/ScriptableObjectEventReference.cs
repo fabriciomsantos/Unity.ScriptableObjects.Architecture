@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
+﻿using ScriptableObjectsArchitecture.Events.SO;
 using ScriptableObjectsArchitecture.Inspector;
 
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace ScriptableObjectsArchitecture.Events.Reference

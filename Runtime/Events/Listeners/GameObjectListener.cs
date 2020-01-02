@@ -1,4 +1,5 @@
-﻿
+﻿using ScriptableObjectsArchitecture.Events.SO;
+
 using UnityEngine;
 
 namespace ScriptableObjectsArchitecture.Events

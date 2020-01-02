@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjectsArchitecture.Variable.Object
+namespace ScriptableObjectsArchitecture.Variable.SO
 {
     [CreateAssetMenu(fileName = "NewQuaternionVariable", menuName = "Variables/Quaternion Variable")]
     public class QuaternionVariable : ScriptableObjectVariable<Quaternion>

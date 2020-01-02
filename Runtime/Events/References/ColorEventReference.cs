@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using ScriptableObjectsArchitecture.Events.SO;
 
 using UnityEngine;
 

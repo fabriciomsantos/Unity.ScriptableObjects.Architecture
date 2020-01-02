@@ -1,4 +1,5 @@
-﻿using ScriptableObjectsArchitecture.Inspector;
+﻿using ScriptableObjectsArchitecture.Events.SO;
+using ScriptableObjectsArchitecture.Inspector;
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,7 +8,7 @@ namespace ScriptableObjectsArchitecture.Events
 {
     public abstract class BaseGameEventListener<T, GE, UER> : MonoBehaviour where GE : BaseGameEvent<T> where UER : UnityEvent<T>, new()
     {
-        [InspectInline(canEditRemoteTarget =true)]
+        [InspectInline(canEditRemoteTarget = true)]
         public GE gameEvent;
 
         public UER unityEventResponse = new UER();
