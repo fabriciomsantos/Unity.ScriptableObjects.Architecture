@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace ScriptableObjectsArchitecture.Events
+namespace ScriptableObjectsArchitecture.Events.Listeners
 {
     /// <summary>
     /// Add as a Component on an game object

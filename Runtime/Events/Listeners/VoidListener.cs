@@ -1,5 +1,5 @@
 ﻿using ScriptableObjectsArchitecture.Events.SO;
-namespace ScriptableObjectsArchitecture.Events
+namespace ScriptableObjectsArchitecture.Events.Listeners
 {
     /// <summary>
     /// Add as a Component on an game object

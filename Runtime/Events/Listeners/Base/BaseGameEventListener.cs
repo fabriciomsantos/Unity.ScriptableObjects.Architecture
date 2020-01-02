@@ -4,7 +4,7 @@ using ScriptableObjectsArchitecture.Inspector;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ScriptableObjectsArchitecture.Events
+namespace ScriptableObjectsArchitecture.Events.Listeners
 {
     public abstract class BaseGameEventListener<T, GE, UER> : MonoBehaviour where GE : BaseGameEvent<T> where UER : UnityEvent<T>, new()
     {
