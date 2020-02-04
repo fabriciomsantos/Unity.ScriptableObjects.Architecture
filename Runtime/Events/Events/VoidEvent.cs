@@ -9,11 +9,11 @@ namespace ScriptableObjectsArchitecture.Events.SO
     [CreateAssetMenu(fileName = "NewVoidEvent", menuName = "Events/Void Event")]
     public class VoidEvent : BaseGameEvent<Void>
     {
-        public void Raise() => Raise(new Void());
+        public void Raise() => Raise(null);
         // ==
         // public void Raise()
         // {
-        //     Raise(new Void());
+        //     Raise(null);
         // }       
     }
 }
