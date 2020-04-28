@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ScriptableObjectsArchitecture.Events.SO
 {
     [Serializable]
-    public abstract class BaseGameEvent<T> : ScriptableObject
+    public abstract class BaseGameEvent<T> : ScriptableObjectsBase
     {
         /// <summary>
         /// Event keyword makes it so that only this class can trigger the event
@@ -19,11 +19,8 @@ namespace ScriptableObjectsArchitecture.Events.SO
             EventListeners(item);
         }
 
-        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
-        private string description;
-
 #pragma warning disable CS0649
-        [Header("Debug"), SerializeField, Tooltip("Editor Only")]
+        [Header("Debug on Play"), SerializeField, Tooltip("Editor Only")]
         private T valueToTest;
 #pragma warning restore CS0649
 

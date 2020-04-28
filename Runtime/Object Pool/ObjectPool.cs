@@ -60,7 +60,7 @@ namespace ScriptableObjectsArchitecture.ObjPool
         /// </summary>
         /// <param name="pool"></param>
         /// <returns>return spawn object</returns>
-        private GameObject SpawnFromPool(Pool pool)
+        public GameObject SpawnFromPool(Pool pool)
         {
             if (!pool)
             {

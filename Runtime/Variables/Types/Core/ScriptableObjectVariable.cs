@@ -1,12 +1,9 @@
-﻿using UnityEngine;
+﻿
 
 namespace ScriptableObjectsArchitecture.Variable.SO
 {
-    public abstract class ScriptableObjectVariable<T> : ScriptableObject
+    public abstract class ScriptableObjectVariable<T> : ScriptableObjectsBase
     {
-        [Multiline(5)][SerializeField][Tooltip("Editor Only")]
-        private string description;
-
         public T Value;
 
         public void SetValue(T value)

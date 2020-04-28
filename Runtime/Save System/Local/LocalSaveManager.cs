@@ -10,27 +10,27 @@ namespace ScriptableObjectsArchitecture.Save
 {
     public class LocalSaveManager : MonoBehaviour
     {
-        #region Public Variables
+#region Public Variables
         [Header("Settings")]
         public bool loadOnEnable;
 
         [Header("Objects")]
         public SaveFile[] saveFiles;
 
-        #endregion
+#endregion
 
-        #region Private Variables
+#region Private Variables
         private const char separator = ';';
 
         [Header("Debug")][SerializeField][Tooltip("Editor Only")]
-        private bool load;
+        private bool loadAll;
 
         [SerializeField][Tooltip("Editor Only")]
-        private bool save;
+        private bool saveAll;
 
-        #endregion
+#endregion
 
-        #region Unity Methods
+#region Unity Methods
 
         /// <summary>
         /// Called when the script is loaded or a value is changed in the
@@ -38,16 +38,28 @@ namespace ScriptableObjectsArchitecture.Save
         /// </summary>
         private void OnValidate()
         {
-            if (save)
+            if (saveAll)
             {
                 SaveGame();
-                save = false;
+                saveAll = false;
             }
 
-            if (load)
+            if (loadAll)
             {
                 LoadGame();
-                load = false;
+                loadAll = false;
+            }
+        }
+
+        /// <summary>
+        /// Awake is called when the script instance is being loaded.
+        /// </summary>
+        void Awake()
+        {
+            foreach (var file in saveFiles)
+            {
+                file.SaveEvent += SaveFile;
+                file.LoadEvent += LoadFile;
             }
         }
 
@@ -62,112 +74,125 @@ namespace ScriptableObjectsArchitecture.Save
             }
         }
 
-        #endregion
+#endregion
 
-        #region Public Methods
+#region Public Methods
+
+        [ContextMenu("Save All Files")]
         public void SaveGame()
         {
-            foreach (var save in saveFiles)
+            foreach (var file in saveFiles)
             {
-                if (save.fileName?.Length == 0)
-                {
-                    Debug.LogWarning("Enter file name");
-                    return;
-                }
-
-                string dataAsJson = "";
-                foreach (var objectToSave in save.objectsToSave)
-                {
-                    if (objectToSave)
-                    {
-                        dataAsJson += JsonUtility.ToJson(objectToSave, save.formatJson) + separator + "\n";
-                    }
-                    else
-                    {
-                        Debug.LogError("missing object data");
-                    }
-                }
-
-                if (dataAsJson?.Length > 0)
-                {
-                    if (save.useEncryption)
-                    {
-                        dataAsJson = AesOperationEncryption.EncryptString(save.encryptionKey, dataAsJson);
-                        dataAsJson = BinaryString.StringToBinary(dataAsJson);
-                    }
-
-                    switch (save.saveLocation)
-                    {
-                        case SaveLocation.LocalFile:
-                            var filePath = Path.Combine(Application.persistentDataPath, save.fileName);
-                            File.WriteAllText(filePath, dataAsJson);
-                            break;
-
-                        case SaveLocation.PlayerPref:
-                            PlayerPrefs.SetString(save.fileName, dataAsJson);
-                            break;
-                    }
-
-                    Debug.Log("File Saved");
-                }
+                SaveFile(file);
             }
         }
 
-        public void LoadGame()
+        public void SaveFile(SaveFile file)
         {
-            foreach (var save in saveFiles)
+            if (file.fileName?.Length == 0)
             {
-                if (save.fileName?.Length == 0)
+                Debug.LogWarning("Enter file name");
+                return;
+            }
+
+            string dataAsJson = "";
+            foreach (var objectToSave in file.objectsToSave)
+            {
+                if (objectToSave)
                 {
-                    Debug.LogWarning("Enter file name");
-                    return;
-                }
-
-                string dataAsJson = "";
-
-                switch (save.saveLocation)
-                {
-                    case SaveLocation.LocalFile:
-                        var filePath = Path.Combine(Application.persistentDataPath, save.fileName);
-
-                        if (File.Exists(filePath))
-                        {
-                            dataAsJson = File.ReadAllText(filePath);
-                        }
-                        break;
-
-                    case SaveLocation.PlayerPref:
-                        dataAsJson = PlayerPrefs.GetString(save.fileName);
-                        break;
-                }
-
-                if (dataAsJson?.Length > 0)
-                {
-                    if (save.useEncryption)
-                    {
-                        dataAsJson = BinaryString.BinaryToString(dataAsJson);
-                        dataAsJson = AesOperationEncryption.DecryptString(save.encryptionKey, dataAsJson);
-                    }
-
-                    for (int i = 0; i < save.objectsToSave.Length; i++)
-                    {
-                        string[] types = dataAsJson.Split(separator);
-                        JsonUtility.FromJsonOverwrite(types[i], save.objectsToSave[i]);
-                        Debug.Log("File Loaded");
-                    }
+                    dataAsJson += JsonUtility.ToJson(objectToSave, file.formatJson) + separator + "\n";
                 }
                 else
                 {
-                    Debug.LogError("Couldn't find save file");
+                    Debug.LogError("missing object data");
                 }
+            }
+
+            if (dataAsJson?.Length > 0)
+            {
+                if (file.useEncryption)
+                {
+                    dataAsJson = AesOperationEncryption.EncryptString(file.encryptionKey, dataAsJson);
+                    dataAsJson = BinaryString.StringToBinary(dataAsJson);
+                }
+
+                switch (file.saveLocation)
+                {
+                    case SaveLocation.LocalFile:
+                        var filePath = Path.Combine(Application.persistentDataPath, file.fileName);
+                        File.WriteAllText(filePath, dataAsJson);
+                        break;
+
+                    case SaveLocation.PlayerPref:
+                        PlayerPrefs.SetString(file.fileName, dataAsJson);
+                        break;
+                }
+
+                Debug.Log(file.fileName + " Saved");
             }
         }
 
-        #endregion
+        [ContextMenu("Load All Files")]
+        public void LoadGame()
+        {
+            foreach (var file in saveFiles)
+            {
+                LoadFile(file);
+            }
+        }
 
-        #region Private Methods
+        public void LoadFile(SaveFile file)
+        {
+            if (file.fileName?.Length == 0)
+            {
+                Debug.LogWarning("Enter file name");
+                return;
+            }
 
-        #endregion
+            string dataAsJson = "";
+
+            switch (file.saveLocation)
+            {
+                case SaveLocation.LocalFile:
+                    var filePath = Path.Combine(Application.persistentDataPath, file.fileName);
+
+                    if (File.Exists(filePath))
+                    {
+                        dataAsJson = File.ReadAllText(filePath);
+                    }
+                    break;
+
+                case SaveLocation.PlayerPref:
+                    dataAsJson = PlayerPrefs.GetString(file.fileName);
+                    break;
+            }
+
+            if (dataAsJson?.Length > 0)
+            {
+                if (file.useEncryption)
+                {
+                    dataAsJson = BinaryString.BinaryToString(dataAsJson);
+                    dataAsJson = AesOperationEncryption.DecryptString(file.encryptionKey, dataAsJson);
+                }
+
+                for (int i = 0; i < file.objectsToSave.Length; i++)
+                {
+                    string[] types = dataAsJson.Split(separator);
+                    JsonUtility.FromJsonOverwrite(types[i], file.objectsToSave[i]);
+                    Debug.Log(file.fileName + " Loaded");
+                }
+            }
+            else
+            {
+                Debug.LogError("Couldn't find save file");
+            }
+        }
+
+#endregion
+
+#region Private Methods
+
+#endregion
     }
 
     public static class BinaryString
